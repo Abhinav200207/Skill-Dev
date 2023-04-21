@@ -1,23 +1,26 @@
-const User = require("../models/User");
+const Employee = require("../models/User");
 
 exports.register = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, city, bio, dob } = req.body;
 
-        let user = await User.findOne({ email });
-        if (user) {
+        let employee = await Employee.findOne({ email });
+        if (employee) {
             return res
                 .status(400)
-                .json({ success: false, message: "User already exists" });
+                .json({ success: false, message: "employee already exists" });
         }
 
-        user = await User.create({
+        employee = await Employee.create({
             name,
             email,
             password,
+            city,
+            bio,
+            dob
         });
 
-        const token = await user.generateToken();
+        const token = await employee.generateToken();
 
         const options = {
             expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
@@ -26,7 +29,7 @@ exports.register = async (req, res) => {
 
         res.status(201).cookie("token", token, options).json({
             success: true,
-            user,
+            employee,
             token,
         });
     } catch (error) {
@@ -41,17 +44,16 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const user = await User.findOne({ email })
-            .select("+password")
+        const employee = await Employee.findOne({ email }).select("+password")
 
-        if (!user) {
+        if (!employee) {
             return res.status(400).json({
                 success: false,
-                message: "User does not exist",
+                message: "employee does not exist",
             });
         }
 
-        const isMatch = await user.matchPassword(password);
+        const isMatch = await employee.matchPassword(password);
 
         if (!isMatch) {
             return res.status(400).json({
@@ -60,7 +62,7 @@ exports.login = async (req, res) => {
             });
         }
 
-        const token = await user.generateToken();
+        const token = await employee.generateToken();
 
         const options = {
             expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
@@ -69,7 +71,7 @@ exports.login = async (req, res) => {
 
         res.status(200).cookie("token", token, options).json({
             success: true,
-            user,
+            employee,
             token,
         });
     } catch (error) {
