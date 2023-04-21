@@ -1,5 +1,14 @@
 const app = require("./app.js");
-const { connectDatabase } = require("./config/db");
+
+const mongoose = require('mongoose'); // Importing Mongoose
+
+
+const connectDatabase = () => {
+    return mongoose.connect("mongodb+srv://mongo:ABHKPV2020@cluster0.ng3en0j.mongodb.net/?retryWrites=true&w=majority").then((data)=>{
+        console.log(`Connected to database data`) // log this statement if connection is successful
+    })
+}
+
 connectDatabase();
 
 const PORT = process.env.PORT | 4000

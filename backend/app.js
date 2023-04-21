@@ -9,13 +9,13 @@ app.use(cookieParser());
 
 // Importing Routes
 const user = require("./routes/User");
-const details = require("./routes/Details");
-const courses = require("./routes/Courses");
+// const details = require("./routes/Details");
+// const courses = require("./routes/Courses");
 
 // Using Routes
 app.use("/user", user);
-app.use("/details", details);
-app.use("/courses", courses);
+// app.use("/details", details);
+// app.use("/courses", courses);
 
 
 
