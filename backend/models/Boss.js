@@ -19,18 +19,19 @@ const bossSchema = new mongoose.Schema({
         minlength: [6, "Password must be at least 6 characters"],
         select: false,
     },
-    employees:[
+    employees: [
         {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"Employee",
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Employee",
         }
     ],
-    jobs:[
-        {type:mongoose.Schema.Types.ObjectId,
-        ref:"Job",
-    }
+    jobs: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Job",
+        }
     ]
-   
+
 
 });
 

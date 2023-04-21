@@ -1,27 +1,24 @@
-const Employee = require("../models/User");
-const Course = require("../models/Course");
+const Boss = require("../models/Boss");
+const Job = require("../models/job");
 
 exports.register = async (req, res) => {
     try {
-        const { name, email, password, city, bio, dob } = req.body;
+        const { name, email, password } = req.body;
 
-        let employee = await Employee.findOne({ email });
-        if (employee) {
+        let boss = await Boss.findOne({ email });
+        if (boss) {
             return res
                 .status(400)
-                .json({ success: false, message: "employee already exists" });
+                .json({ success: false, message: "boss already exists" });
         }
 
-        employee = await Employee.create({
+        boss = await Boss.create({
             name,
             email,
             password,
-            city,
-            bio,
-            dob
         });
 
-        const token = await employee.generateToken();
+        const token = await boss.generateToken();
 
         const options = {
             expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
@@ -30,7 +27,7 @@ exports.register = async (req, res) => {
 
         res.status(201).cookie("token", token, options).json({
             success: true,
-            employee,
+            boss,
             token,
         });
     } catch (error) {
@@ -45,16 +42,16 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const employee = await Employee.findOne({ email }).select("+password")
+        const boss = await Boss.findOne({ email }).select("+password")
 
-        if (!employee) {
+        if (!boss) {
             return res.status(400).json({
                 success: false,
-                message: "employee does not exist",
+                message: "boss does not exist",
             });
         }
 
-        const isMatch = await employee.matchPassword(password);
+        const isMatch = await boss.matchPassword(password);
 
         if (!isMatch) {
             return res.status(400).json({
@@ -63,7 +60,7 @@ exports.login = async (req, res) => {
             });
         }
 
-        const token = await employee.generateToken();
+        const token = await boss.generateToken();
 
         const options = {
             expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
@@ -72,7 +69,7 @@ exports.login = async (req, res) => {
 
         res.status(200).cookie("token", token, options).json({
             success: true,
-            employee,
+            boss,
             token,
         });
     } catch (error) {
@@ -100,26 +97,27 @@ exports.logout = async (req, res) => {
     }
 };
 
-exports.enroll = async (req, res) => {
+
+exports.addjobs = async (req, res) => {
     try {
-        const { courseId } = req.body;
+        const { title, totalopenings, vacanciesleft } = req.body;
 
-        const course = await Course.findById(courseId);
+        const job = await Job.create({
+            title: title,
+            totalopenings: totalopenings,
+            createdby: req.boss._id,
+            vacanciesleft: vacanciesleft
+        });
 
-        course.numberOfEnrollments += 1;
-        course.students.unshift(req.user._id);
+        const boss = await Boss.findById(req.boss._id);
 
-        const employee = await Employee.findById(req.user._id);
+        boss.jobs.unshift(job._id);
 
-        employee.courses.unshift(courseId);
-
-
-        await course.save();
-        await employee.save();
-
+        await boss.save();
         res.status(201).json({
             success: true,
-            message: "enrollment sucessful"
+            job: job,
+            message: "Job created",
         });
 
     } catch (error) {
@@ -129,3 +127,4 @@ exports.enroll = async (req, res) => {
         });
     }
 }
+
