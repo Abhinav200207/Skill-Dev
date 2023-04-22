@@ -128,3 +128,27 @@ exports.addjobs = async (req, res) => {
     }
 }
 
+
+exports.addEmployee = async (req, res) => {
+    try {
+        const { emplid } = req.body;
+
+        // this is where we have to add mail functinality
+
+        const boss = await Boss.findById(req.boss._id);
+
+        boss.employees.unshift(emplid);
+        await boss.save();
+
+        res.status(201).json({
+            success: true,
+            message: "Employee added",
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+}
