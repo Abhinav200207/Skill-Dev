@@ -23,8 +23,8 @@ const employeeSchema = new mongoose.Schema({
     city: {
         type: String,
     },
-    state:{
-        type:String,
+    state: {
+        type: String,
     },
     bio: {
         type: String,
@@ -48,7 +48,7 @@ const employeeSchema = new mongoose.Schema({
             rating: {
                 type: Number,
             },
-            employer:{
+            employer: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Boss'
             }
@@ -78,4 +78,4 @@ employeeSchema.methods.generateToken = function () {
     return jwt.sign({ _id: this._id }, "dfrkfsesggrtg983gettewg2983grer298gjliugutgfig98wro8afnwhi4");
 };
 
-module.exports = mongoose.model("Employee", employeeSchema, 'employees');
+module.exports = mongoose.model("Employee", employeeSchema);

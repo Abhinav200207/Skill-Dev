@@ -1,7 +1,7 @@
 const express = require("express");
 
-const { isAuthenticated } = require("../middlewares/auth");
-const { register, login, logout, enroll } = require("../Controllers/User");
+const { isAuthenticated } = require("../middlewares/authBoss");
+const { register, login, logout, addjobs } = require("../Controllers/Boss");
 const router = express.Router();
 
 
@@ -11,6 +11,6 @@ router.route("/login").post(login);
 
 router.route("/logout").get(logout);
 
-router.route("/enroll").post(isAuthenticated, enroll);
+router.route("/addjobs").post(isAuthenticated, addjobs);
 
 module.exports = router;

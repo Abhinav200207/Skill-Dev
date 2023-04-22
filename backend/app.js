@@ -11,14 +11,14 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
 
 // Importing Routes
-const user = require("./routes/User");
-// const details = require("./routes/Details");
-// const courses = require("./routes/Courses");
+const user = require("./Routes/User");
+const boss = require("./Routes/Boss");
+const course = require("./Routes/Courses");
 
 // Using Routes
 app.use("/user", user);
-// app.use("/details", details);
-// app.use("/courses", courses);
+app.use("/boss", boss);
+app.use("/course", course);
 
 
 
