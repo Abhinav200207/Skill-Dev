@@ -157,3 +157,17 @@ exports.updateUser = async (req, res) => {
         });
     }
 }
+
+exports.getEmployeeId = async (req, res) => {
+    try {
+        res.status(201).json({
+            success: true,
+            user_id: req.user._id,
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+}
