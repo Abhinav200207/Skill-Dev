@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import axios from "axios"
-export default function Login() {
+export default function EmployerRegister() {
 
 
 const[user,setUser]=useState({
@@ -31,7 +31,7 @@ const val = (e) => {
 		e.preventDefault();
 		const {name, email, password, city,bio,dob } = user;
 		if (email && password && name&&city&&bio&&dob) {
-			await axios.post("http://localhost:8000/user/register", user).then((res) => {
+			await axios.post("http://localhost:8000/boss/register", user).then((res) => {
 				alert(res.data.message);
 				console.log(res.data.user)
 				window.location.reload();
@@ -83,7 +83,7 @@ const val = (e) => {
                 
                 <button onClick={handlChange}>Register</button>
                 <div class="register">
-                    <p>Already have a account <Link to="/login">Login</Link></p>
+                    <p>Already have a account <Link to="/employer/login">Login</Link></p>
                 </div>
             </form>
         </div>
@@ -94,7 +94,7 @@ const val = (e) => {
   )
 }
 const Container= styled.div`
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap'); */
 background:url('images/doodle1.jpg');
 background-size:cover;
 backdrop-filter:blur(20px);
