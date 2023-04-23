@@ -17,6 +17,9 @@ const courseSchema = new mongoose.Schema({
     description: {
         type: String,
     },
+    imageUrl: {
+        type: String,
+    },
     students: [
         {
             type: mongoose.Schema.Types.ObjectId,
