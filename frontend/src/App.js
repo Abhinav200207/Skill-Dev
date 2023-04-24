@@ -37,7 +37,7 @@ function App() {
           <Route path="/employer/login" element={<EmployerLogin />} />
           {loggedin && (
             <>
-              <Route path="/employer/profile" element={<EmployerJob  />} />
+              <Route path="/employer/profile" element={<EmployerJob />} />
               <Route path="/user/profile" element={<Profile name={name} setName={setName} />} />
               <Route path="/user/courses" element={<MultiActionAreaCard name={name} setName={setName} />} />
               <Route path="/user/mycourses" element={<MultiAreaCard name={name} setName={setName} />} />

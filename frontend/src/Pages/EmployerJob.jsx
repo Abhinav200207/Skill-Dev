@@ -7,6 +7,8 @@ export default function EmployerJob() {
     return (
         <div>
             <ResponsiveAppBar />
+            <br />
+            <br />
             <Filter />
         </div>
     )

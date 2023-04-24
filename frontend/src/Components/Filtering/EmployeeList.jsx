@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import HomeIcon from '@mui/icons-material/Home';
 import emailjs from 'emailjs-com'
 import { Button } from '@mui/material';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import AddIcon from '@mui/icons-material/Add';
 
 export default function EmployeeList({ name, city, state, skills, email, id }) {
     const form = useRef();
@@ -21,8 +21,8 @@ export default function EmployeeList({ name, city, state, skills, email, id }) {
 
     return (
         <div className="phone">
-            <div style={{ "paddingLeft": "3%" }}>
-                <div> <span style={{ "fontWeight": "bold", "fontSize": "18px" }}> {name} </span>, <HomeIcon style={{ "marginLeft": "2px", "width": "3%", "height": "3%", "marginBottom": "-3px" }} /> <span style={{ "fontWeight": "bold", "fontSize": "13px", "marginRight": "5px" }}> City: </span> {city}</div>
+            <div style={{ "paddingLeft": "3%", "fontFamily": "sans-serif" }}>
+                <div style={{"textAlign":"left"}}> <span style={{ "fontWeight": "bold", "fontSize": "18px" }}> {name} </span>, <HomeIcon style={{ "marginLeft": "2px", "width": "3%", "height": "3%", "marginBottom": "-3px" }} /> <span style={{ "fontWeight": "bold", "fontSize": "13px", "marginRight": "5px" }}> City: </span> {city}</div>
                 <div style={{ "display": "flex", "flexDirection": "row" }}><span style={{ "fontWeight": "bold", "fontSize": "15px" }}> Skills : </span>
                     {
                         skills && skills.length > 0 ? (
@@ -36,11 +36,11 @@ export default function EmployeeList({ name, city, state, skills, email, id }) {
                     }
                 </div>
             </div>
-            <form ref={form} onSubmit={sendEmail} style={{"marginRight":"10px"}}>
+            <form ref={form} onSubmit={sendEmail} style={{ "marginRight": "10px" }}>
                 <input type="text" value={name} name="to_name" style={{ "display": "none" }} />
                 <input type="email" value={email} name="to_email" style={{ "display": "none" }} />
                 <Button type="submit" onSubmit={sendEmail} className="button" style={{ "marginRight": "3%", "backgroundColor": "rgba(254, 7, 77, 0.79)" }}>
-                    <DeleteOutlineIcon style={{ "color": "white" }} />
+                    <AddIcon style={{ "color": "white" }} />
                 </Button>
             </form>
         </div>
