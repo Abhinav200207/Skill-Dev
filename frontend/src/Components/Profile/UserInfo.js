@@ -54,7 +54,9 @@ function UserInfo({ checked, user, setUser }) {
 	"Gardener",
 	"Carpainter",
 	"Car Servicing",
-	"Vehicle Driver"
+	"Vehicle Driver",
+	"Plumber",
+	
 	];
 	const options = skills.filter((skill) => userSkills.indexOf(skill) === -1);
 	const value = null;

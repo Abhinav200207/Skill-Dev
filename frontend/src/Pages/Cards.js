@@ -8,7 +8,7 @@ import axios from "axios"
 import ResponsiveAppBar from '../Components/Main/Header';
 import { useState } from 'react';
 import { Box } from '@mui/material';
-export default function MultiActionAreaCard() {
+export default function MultiActionAreaCard(name) {
 const [cards,setCards]=useState([])
 const [id,setUserId]=useState("")
 let r=false
@@ -46,7 +46,7 @@ handleChange()
 
 
   return (<>
-  <ResponsiveAppBar name={"himanshu"}/>
+  <ResponsiveAppBar name={name.name}/>
   <Box sx={{width:"100%",marginX:0,}}>
 < Box>
 <Typography component="h1" variant="h6" sx={{ fontWeight: "bold" }}>
@@ -70,8 +70,8 @@ break;
         <CardMedia
           component="img"
           height="140"
-          image="https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg"
-          alt="green iguana"
+          image={cards.imageUrl}
+          alt={cards.title}
         />
         <CardContent sx={{display:"flex",alignItems:"flex-start",flexDirection:"column"}}>
           <Typography gutterBottom variant="h6" component="div">
@@ -84,7 +84,8 @@ break;
            {cards.numberOfEnrollments} enrollements
           </Typography>
           <Typography variant="body3" color="text.secondary" sx={{float:'right'}}>
-           {cards.description}
+          {cards.description.length>200?cards.description.slice(0,200):cards.description}
+
           </Typography>
         </CardContent>
       </CardActionArea>

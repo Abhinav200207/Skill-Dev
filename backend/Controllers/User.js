@@ -130,37 +130,11 @@ exports.enroll = async (req, res) => {
         });
     }
 }
-exports.updateUser = async (req, res) => {
-    try {
-        const employee = await Employee.findById(req.user._id);
 
-        const { name, city, bio, state, dob, skills } = req.body;
-
-        employee.name = name;
-        employee.city = city;
-        employee.state = state;
-        employee.dob = dob;
-        employee.bio = bio;
-        employee.skills = skills;
-
-        await employee.save();
-
-        res.status(200).json({
-            success: true,
-            employee: employee,
-            message: "Profile Updated",
-        });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message,
-        });
-    }
-}
 exports.info=async(req,res)=>{
    try {
     const {userId}=req.body
-    const user=await Employee.findById(userId)
+    const user=await Employee.findById(userId).populate({path:'courses'})
     res.status(201).json({
         success: true,
         message: "enrollment sucessful",
@@ -179,7 +153,8 @@ exports.info=async(req,res)=>{
 
 exports.updateUser = async (req, res) => {
     try {
-        const employee = await Employee.findById(req.user._id);
+        const {_id}=req.body
+        const employee = await Employee.findById(_id).populate({path:'courses'});
 
         const { name, city, bio, state, dob, skills } = req.body;
 

@@ -16,18 +16,18 @@ return (
 			key={course.index}
 			  component="img"
 			  height="140"
-			  image="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80"
-			  alt="green iguana"
+			  image={course.course.imageUrl}
+			  alt={course.course.title}
 			/>
-			<CardContent>
+			<CardContent sx={{display:"flex",alignItems:"flex-start",flexDirection:"column"}}>
 			  <Typography gutterBottom variant="h6" component="div">
 			{course.course.title}
 			  </Typography>
-			  <Typography gutterBottom variant="body1" component="div">
+			  <Typography gutterBottom variant="body2" component="div">
 			{course.course.author}
 			  </Typography>
-			  <Typography variant="body2" color="text.secondary">
-			{course.course.description}
+			  <Typography variant="body3" color="text.secondary">
+			{course.course.description.length>100?course.course.description.slice(0,100):course.course.description}
 			  </Typography>
 			</CardContent>
 		  </CardActionArea>

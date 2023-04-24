@@ -8,7 +8,8 @@ import axios from "axios"
 import ResponsiveAppBar from '../Components/Main/Header';
 import { useState } from 'react';
 import { Box } from '@mui/material';
-export default function MultiAreaCard() {
+
+export default function MultiAreaCard(name) {
 const [cards,setCards]=useState([])
 const [id,setUserId]=useState("")
 React.useEffect(()=>{
@@ -34,14 +35,14 @@ handleChange()
 
 console.log("cards",cards)
   return (<>
-  <ResponsiveAppBar/>
+  <ResponsiveAppBar name={name.name}/>
   <Box sx={{width:"100%",marginX:0}}>
 < Box>
 <Typography component="h1" variant="h6" sx={{ fontWeight: "bold" }}>
 											Courses
 </Typography>
 </Box>
-<Box sx={{ marginX: "5%" ,display:"flex",justifyContent:"center",alignItems:"center",height:"fit-content",flexWrap:"wrap"}}>
+<Box sx={{ marginX: "5%" ,display:"flex",justifyContent:"center",alignItems:"center",height:"fit-content",flexWrap:"wrap",minHeight:"300px"}}>
                             {
                               
     cards.map((cards,index)=>{
@@ -51,8 +52,8 @@ console.log("cards",cards)
         <CardMedia
           component="img"
           height="140"
-          image="https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg"
-          alt="green iguana"
+          image={cards.imageUrl}
+          alt={cards.title}
         />
         <CardContent sx={{display:"flex",alignItems:"flex-start",flexDirection:"column"}}>
           <Typography gutterBottom variant="h6" component="div">
@@ -65,7 +66,7 @@ console.log("cards",cards)
            {cards.numberOfEnrollments}
           </Typography>
           <Typography variant="body3" color="text.secondary">
-           {cards.description}
+          {cards.description.length>200?cards.description.slice(0,200):cards.description}
           </Typography>
         </CardContent>
       </CardActionArea>
