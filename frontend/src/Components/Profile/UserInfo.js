@@ -42,6 +42,7 @@ function UserInfo({ checked, user, setUser }) {
 	const [cityInput, setCityInput] = useState("");
 	const [cities, setCities] = useState([]);
 	const [city, setCity] = useState(null);
+	
 	const [date, setDate] = useState(user.dob ? user.dob.slice(0, 10) : "");
 
 	const [demo, setDemo] = useState(null);
@@ -63,7 +64,7 @@ function UserInfo({ checked, user, setUser }) {
 
 	const handleSkills = (newValue) => {
 		setUser({ ...user, skills: [newValue, ...userSkills].sort() });
-		// console.log("On adding:", user.skills);
+		
 		setUserSkills([newValue, ...userSkills].sort());
 	};
 
@@ -93,7 +94,8 @@ function UserInfo({ checked, user, setUser }) {
 					const response = await axios.get(
 						`http://geodb-free-service.wirefreethought.com/v1/geo/cities?namePrefix=${cityInput}`
 					);
-					const gotCities = response.data.data.map((city) => `${city.city}, ${city.region}, ${city.country}`);
+					const gotCities = response.data.data.map((city) => `${city.city}`);
+
 					
 					const updatedCities = [...new Set(gotCities)];
 					setLoadingText(gotCities.length > 0 ? "Loading..." : "No city found");

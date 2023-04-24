@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import './filter.css'
 import { Button, TextField, Typography } from '@mui/material'
 import EmployeeList from './EmployeeList';
+import axios from 'axios'
+
 
 const Filter = () => {
     const [state, setState] = useState("");
@@ -18,19 +20,18 @@ const Filter = () => {
         }
     ]);
 
-    // useEffect(() => {
-    //     setEmployee(getResponse());
-    // }, []);
+   
 
-    // useEffect(() => {
-    // }, [clickHandler]);
-
-    const clickHandler = () => {
-        // setEmployee(getResponse(state, city, skill));
+    const clickHandler = async () => {
+        const res = await axios.get(`http://localhost:4000/details/employee?city=${city}&state=${state}&skills=${skill}`)
+        setEmployee(res.data.employee);
+        // console.log(res.data.employee);
+        console.log("employee",employee)
     };
 
     return (
         <div className="filter">
+
             <div className='input-filter'>
 
                 <div className='input-filter-content state-filter'>
