@@ -31,9 +31,9 @@ export default function EmployerLogin() {
               if (email && password) {
                   await axios.post("http://localhost:4000/boss/login", user).then((res) => {
                       alert(res.data.message);
-                      console.log(res.data.user)
-                      window.localStorage.setItem("userId",`${res.data.employee._id}`)
-                      window.location.reload();
+                      console.log(res.data.message)
+                      window.localStorage.setItem("userId",`${res.data.boss._id}`)
+                     
                   });
             console.log(user)
               } else {
