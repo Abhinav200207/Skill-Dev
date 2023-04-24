@@ -12,23 +12,26 @@ import UserCourses from "../Components/Profile/UserCourses";
 import { Edit, PersonAdd } from "@mui/icons-material";
 import axios from "axios";
 
-function Profile() {
+function Profile(name) {
+	console.log(name,"name")
+	
 	const [edit, setEdit] = useState(false);
-	const [user, setUser] = useState({name:"him",username:"hio",bio:"bhsbs",skills:["Carpainter"],email:"himanishu93@gmail.com",courses:[{title:"wood",author:"himanshu",description:"agjvdkhcfhgvlhgfhx cgjhghgkhcgjv"},{title:"wood",author:"himanshu",description:"agjvdkhcfhgvlhgfhx cgjhghgkhcgjv"},{title:"wood",author:"himanshu",description:"agjvdkhcfhgvlhgfhx cgjhghgkhcgjv"},{title:"wood",author:"himanshu",description:"agjvdkhcfhgvlhgfhx cgjhghgkhcgjv"},{title:"wood",author:"himanshu",description:"agjvdkhcfhgvlhgfhx cgjhghgkhcgjv"},{title:"wood",author:"himanshu",description:"agjvdkhcfhgvlhgfhx cgjhghgkhcgjv"},{title:"wood",author:"himanshu",description:"agjvdkhcfhgvlhgfhx cgjhghgkhcgjv"},{title:"wood",author:"himanshu",description:"agjvdkhcfhgvlhgfhx cgjhghgkhcgjv"},{title:"wood",author:"himanshu",description:"agjvdkhcfhgvlhgfhx cgjhghgkhcgjv"},{title:"wood",author:"himanshu",description:"agjvdkhcfhgvlhgfhx cgjhghgkhcgjv"},{title:"wood",author:"himanshu",description:"agjvdkhcfhgvlhgfhx cgjhghgkhcgjv"},{title:"wood",author:"himanshu",description:"agjvdkhcfhgvlhgfhx cgjhghgkhcgjv"}]});
+	const [user, setUser] = useState();
 	const id = window.localStorage.getItem("userId");
 
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				const userInfo = await axios.get(`http://localhost:4000/user/getinfo`,{userId:id});
+				const userInfo = await axios.post(`http://localhost:4000/user/getinfo`,{userId:id});
 				console.log(userInfo.data.user);
 				setUser(userInfo.data.user);
+				name.setName(userInfo.data.user.name)
 			} catch (error) {
 				console.log(error);
 			}
 		};
 		fetchUser();
-	}, [id]);
+	}, []);
 
 	const handleChange = (e) => {
 		e.preventDefault();
@@ -45,10 +48,10 @@ function Profile() {
 	const handleSave = async (e) => {
 		e.preventDefault();
 		console.log("User to be updated: ", user);
-		const updatedUser = await axios.post(`http://localhost:8000/api/auth/updateuser/${id}`, user);
+		const updatedUser = await axios.post(`http://localhost:4000/user/update`, user);
 		console.log(updatedUser);
 		setEdit(false);
-		// setUser(updatedUser.data.userUp);
+		setUser(updatedUser.data.employee);
 	};
 
 	return (
@@ -56,7 +59,7 @@ function Profile() {
 			{user && (
 				<div>
 					<Box>
-						<ResponsiveAppBar/>
+						<ResponsiveAppBar name={name.name}/>
 						<Container component="main" maxWidth="md">
 							<CssBaseline />
 							<Box
@@ -158,7 +161,7 @@ function Profile() {
 											}}
 										>
 											<Typography component="h1" variant="body2" sx={{ fontWeight: "bold" }}>
-											Courses:{user.courses.length}
+											Courses:{user.courses.length||0}
 											</Typography>
 											
 										</Box>

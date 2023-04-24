@@ -1,10 +1,10 @@
 import React,{useState} from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 
 import axios from "axios"
 export default function Login() {
-
+const Navigate=useNavigate()
     const[user,setUser]=useState({
     
         email:"",
@@ -33,6 +33,7 @@ export default function Login() {
                   await axios.post("http://localhost:4000/user/login", user).then((res) => {
                       alert(res.data.employee._id);
                       window.localStorage.setItem("userId",`${res.data.employee._id}`)
+                      
                       console.log(res)
                       Navigate("/user/profile")
                   });
