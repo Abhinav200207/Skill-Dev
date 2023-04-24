@@ -68,7 +68,7 @@ exports.login = async (req, res) => {
         };
 
         res.status(200).cookie("token", token, options).json({
-            message:"login sucessfully",
+            message: "login sucessfully",
             success: true,
             boss,
             token,
@@ -152,4 +152,23 @@ exports.addEmployee = async (req, res) => {
             message: error.message,
         });
     }
+}
+
+exports.info = async (req, res) => {
+    try {
+        const { userId } = req.body
+        const user = await Boss.findById(userId)
+        res.status(201).json({
+            success: true,
+            message: "enrollment sucessful",
+            user
+        });
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+
 }
