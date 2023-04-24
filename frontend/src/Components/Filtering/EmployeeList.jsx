@@ -22,12 +22,17 @@ export default function EmployeeList({ name, city, state, skills, email, id }) {
     return (
         <div className="phone">
             <div style={{ "paddingLeft": "3%" }}>
-                <div> <span style={{ "fontWeight": "bold", "fontSize": "18px" }}> {name} </span>, <HomeIcon style={{ "marginLeft": "2px", "width": "3%", "height": "3%", "marginBottom": "-3px" }} /> <span style={{ "fontWeight": "bold", "fontSize": "13px", "marginRight": "5px" }}> City: </span> {city}, <span style={{ "fontWeight": "bold", "fontSize": "13px", "marginRight": "5px" }}> State: </span> {state}</div>
+                <div> <span style={{ "fontWeight": "bold", "fontSize": "18px" }}> {name} </span>, <HomeIcon style={{ "marginLeft": "2px", "width": "3%", "height": "3%", "marginBottom": "-3px" }} /> <span style={{ "fontWeight": "bold", "fontSize": "13px", "marginRight": "5px" }}> City: </span> {city}</div>
                 <div style={{ "display": "flex", "flexDirection": "row" }}><span style={{ "fontWeight": "bold", "fontSize": "15px" }}> Skills : </span>
                     {
-                        skills.map((x, index) => (
-                            index < skills.length - 1 ? <div key={index}>&nbsp; {x}, </div> : <div key={index}>&nbsp; {x} </div>
-                        ))
+                        skills && skills.length > 0 ? (
+                            skills.map((x, index) => (
+                                index < skills.length - 1 ? <div key={index}>&nbsp; {x}, </div> : <div key={index}>&nbsp; {x} </div>
+                            ))
+
+                        ) : (
+                            <div></div>
+                        )
                     }
                 </div>
             </div>
