@@ -1,4 +1,4 @@
-import { Routes, Route, Router, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import './App.css';
 import React, { useState, useEffect } from "react"
 import Register from './Pages/Register';
@@ -9,7 +9,7 @@ import Profile from './Pages/Profile'
 import MultiActionAreaCard from './Pages/Cards';
 import MultiAreaCard from './Pages/MyCards';
 import EmployerJob from './Pages/EmployerJob';
-import axios from 'axios';
+
 import Dashboard from './Components/Dashboard/Dashboard';
 function App() {
   const [loggedin, setloggedin] = useState(false)

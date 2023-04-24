@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ResponsiveAppBar from "../Components/Main/Header";
 import Filter from "../Components/Filtering/Filter";
 

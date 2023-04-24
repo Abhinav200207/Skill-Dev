@@ -1,9 +1,9 @@
-import { CakeRounded, Clear, ExpandMore, Mail, Place } from "@mui/icons-material";
-import { Autocomplete, Avatar, Button, Chip, Collapse, TextField, Typography } from "@mui/material";
+import { CakeRounded, Clear, Mail, Place } from "@mui/icons-material";
+import { Autocomplete, Button, Chip, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { Box } from "@mui/system";
 import React from "react";
-import { useEffect, useState }  from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import axios from "axios";
 
@@ -42,29 +42,27 @@ function UserInfo({ checked, user, setUser }) {
 	const [cityInput, setCityInput] = useState("");
 	const [cities, setCities] = useState([]);
 	const [city, setCity] = useState(null);
-	
+
 	const [date, setDate] = useState(user.dob ? user.dob.slice(0, 10) : "");
 
-	const [demo, setDemo] = useState(null);
-	const [demoInput, setDemoInput] = useState("");
 
 	const skills = [
-	"Construction worker",
-	"Sewing",
-	"Chef",
-	"Gardener",
-	"Carpainter",
-	"Car Servicing",
-	"Vehicle Driver",
-	"Plumber",
-	
+		"Construction worker",
+		"Sewing",
+		"Chef",
+		"Gardener",
+		"Carpainter",
+		"Car Servicing",
+		"Vehicle Driver",
+		"Plumber",
+
 	];
 	const options = skills.filter((skill) => userSkills.indexOf(skill) === -1);
 	const value = null;
 
 	const handleSkills = (newValue) => {
 		setUser({ ...user, skills: [newValue, ...userSkills].sort() });
-		
+
 		setUserSkills([newValue, ...userSkills].sort());
 	};
 
@@ -96,7 +94,7 @@ function UserInfo({ checked, user, setUser }) {
 					);
 					const gotCities = response.data.data.map((city) => `${city.city}`);
 
-					
+
 					const updatedCities = [...new Set(gotCities)];
 					setLoadingText(gotCities.length > 0 ? "Loading..." : "No city found");
 					setCities(updatedCities);
@@ -106,10 +104,10 @@ function UserInfo({ checked, user, setUser }) {
 			}, 750);
 			return () => clearTimeout(fetchCities);
 		} else setCities([]);
-		
+
 	}, [cityInput]);
 
-	
+
 
 	const info = (
 		<Box>
@@ -141,7 +139,7 @@ function UserInfo({ checked, user, setUser }) {
 									options={options}
 									renderInput={(params) => <TextField {...params} label="Choose Skill" />}
 								/>
-								 
+
 							</Grid>
 						)}
 						{userSkills.map((skill) => {
@@ -154,8 +152,8 @@ function UserInfo({ checked, user, setUser }) {
 										sx={{
 											width: "100%",
 											fontSize: "15px",
-											fontWeight:"600",
-											}}
+											fontWeight: "600",
+										}}
 									/>
 									{checked && (
 										<Button
@@ -239,7 +237,7 @@ function UserInfo({ checked, user, setUser }) {
 				<Box sx={{ display: "flex" }}>
 					<Mail sx={{ width: "20px", height: "20px" }} />
 					<Typography sx={{ marginLeft: "15px" }}>{user.email}</Typography>
-					
+
 				</Box>
 			</Box>
 		</Box>
@@ -255,11 +253,11 @@ function UserInfo({ checked, user, setUser }) {
 				onClick={() => setUserInfoOpen(!userInfoOpen)}
 				sx={{ cursor: "pointer" }}
 			>
-				
+
 			</Box>
-			
-				{info}
-			
+
+			{info}
+
 		</div>
 	);
 }

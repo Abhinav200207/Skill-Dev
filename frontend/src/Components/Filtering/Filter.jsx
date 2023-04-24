@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './filter.css'
 import { Button, TextField, Typography } from '@mui/material'
 import EmployeeList from './EmployeeList';
@@ -20,13 +20,13 @@ const Filter = () => {
         }
     ]);
 
-   
+
 
     const clickHandler = async () => {
         const res = await axios.get(`http://localhost:4000/details/employee?city=${city}&state=${state}&skills=${skill}`)
         setEmployee(res.data.employee);
         // console.log(res.data.employee);
-        console.log("employee",employee)
+        console.log("employee", employee)
     };
 
     return (

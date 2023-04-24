@@ -9,12 +9,12 @@ import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import UserInfo from "../Components/Profile/UserInfo";
 import UserCourses from "../Components/Profile/UserCourses";
-import { Edit, PersonAdd } from "@mui/icons-material";
+import { Edit } from "@mui/icons-material";
 import axios from "axios";
 
 function Profile(name) {
-	console.log(name,"name")
-	
+	console.log(name, "name")
+
 	const [edit, setEdit] = useState(false);
 	const [user, setUser] = useState();
 	const id = window.localStorage.getItem("userId");
@@ -22,7 +22,7 @@ function Profile(name) {
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				const userInfo = await axios.post(`http://localhost:4000/user/getinfo`,{userId:id});
+				const userInfo = await axios.post(`http://localhost:4000/user/getinfo`, { userId: id });
 				console.log(userInfo.data.user);
 				setUser(userInfo.data.user);
 				name.setName(userInfo.data.user.name)
@@ -36,7 +36,7 @@ function Profile(name) {
 	const handleChange = (e) => {
 		e.preventDefault();
 		const { value, name } = e.target;
-		
+
 		setUser(() => {
 			return {
 				...user,
@@ -59,7 +59,7 @@ function Profile(name) {
 			{user && (
 				<div>
 					<Box>
-						<ResponsiveAppBar name={name.name}/>
+						<ResponsiveAppBar name={name.name} />
 						<Container component="main" maxWidth="md">
 							<CssBaseline />
 							<Box
@@ -77,8 +77,8 @@ function Profile(name) {
 										width: "30%",
 									}}
 								>
-									
-									<Avatar alt="" src="" sx={{ width: 100, height: 100, margin: 2,border:"2px solid #4bb543" }} />
+
+									<Avatar alt="" src="" sx={{ width: 100, height: 100, margin: 2, border: "2px solid #4bb543" }} />
 								</Box>
 								<Box
 									sx={{
@@ -161,9 +161,9 @@ function Profile(name) {
 											}}
 										>
 											<Typography component="h1" variant="body2" sx={{ fontWeight: "bold" }}>
-											Courses:{user.courses.length||0}
+												Courses:{user.courses.length || 0}
 											</Typography>
-											
+
 										</Box>
 										<Box
 											sx={{
@@ -173,8 +173,8 @@ function Profile(name) {
 												alignItems: "center",
 											}}
 										>
-											
-											
+
+
 										</Box>
 										<Box
 											sx={{
@@ -184,7 +184,7 @@ function Profile(name) {
 												alignItems: "center",
 											}}
 										>
-											
+
 										</Box>
 									</Box>
 									<Box
@@ -240,18 +240,18 @@ function Profile(name) {
 								</>
 							)}
 							<Divider />
-							<Box sx={{width:"100%",marginX:0}}>
+							<Box sx={{ width: "100%", marginX: 0 }}>
 								< Box>
-							<Typography component="h1" variant="h6" sx={{ fontWeight: "bold" }}>
-											Courses
+									<Typography component="h1" variant="h6" sx={{ fontWeight: "bold" }}>
+										Courses
 									</Typography>
-											</Box>
-							<Box sx={{ marginX: "5%" ,display:"flex",justifyContent:"center",alignItems:"center",height:"fit-content",flexWrap:"wrap"}}>
-							{user.courses.map((course,index)=>(
-								<UserCourses course={course} index={index}/>)
-								)
-							}
-							</Box>
+								</Box>
+								<Box sx={{ marginX: "5%", display: "flex", justifyContent: "center", alignItems: "center", height: "fit-content", flexWrap: "wrap" }}>
+									{user.courses.map((course, index) => (
+										<UserCourses course={course} index={index} />)
+									)
+									}
+								</Box>
 							</Box>
 						</Container>
 					</Box>

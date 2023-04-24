@@ -33,7 +33,7 @@ const Dashboard = () => {
                 <div className='button-dashboard'>
                     <Link to="/user/login">
                         <Button >
-                            <div className='btn-default-student'>Students/Employee</div>
+                            <div className='btn-default-student'>Workers</div>
                         </Button>
                     </Link>
                     <Link to="/employer/login">
