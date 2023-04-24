@@ -8,46 +8,34 @@ import axios from "axios"
 import ResponsiveAppBar from '../Components/Main/Header';
 import { useState } from 'react';
 import { Box } from '@mui/material';
-export default function MultiActionAreaCard() {
+export default function MultiAreaCard() {
 const [cards,setCards]=useState([])
 const [id,setUserId]=useState("")
-let r=false
-	React.useEffect(()=>{
-	const item=window.localStorage.getItem("userId")
-	setUserId(item)
-	console.log(item)
-	},[])
+React.useEffect(()=>{
+const item=window.localStorage.getItem("userId")
+setUserId(item)
+console.log(item)
+},[])
 const handleChange=async()=>{
    try {
-    const course=await axios.get("http://localhost:4000/course/getcourse")
-    console.log(course)
-    setCards(course.data.courses)
+    const user={userId:"64441a1966d873db95d8a2cb"}
+    const course=await axios.post("http://localhost:4000/course/getmycourse",user)
+    console.log(course.data.courses[0].courses)
+    setCards(course.data.courses[0].courses)
    } catch (error) {
     alert(error)
    }
 
 }
 
-const handle=async(userId,courseId)=>{
-  try {
-    const user={userId,courseId}
-    const course=await axios.post("http://localhost:4000/user/enroll",user)
-    console.log(course)
-    alert(course.data.message)
-    window.location.reload()
-  } catch (error) {
-    console.log(error)
-  }
-}
-
 React.useEffect(()=>{
 handleChange()
 },[])
 
-
+console.log("cards",cards)
   return (<>
-  <ResponsiveAppBar name={"himanshu"}/>
-  <Box sx={{width:"100%",marginX:0,}}>
+  <ResponsiveAppBar/>
+  <Box sx={{width:"100%",marginX:0}}>
 < Box>
 <Typography component="h1" variant="h6" sx={{ fontWeight: "bold" }}>
 											Courses
@@ -55,17 +43,10 @@ handleChange()
 </Box>
 <Box sx={{ marginX: "5%" ,display:"flex",justifyContent:"center",alignItems:"center",height:"fit-content",flexWrap:"wrap"}}>
                             {
+                              
     cards.map((cards,index)=>{
-      r=false
-      for(let i=0;i<cards.students.length;i++){
-        if(cards.students[i]===id){
-r=true
-break;
-        }else r=false
-      }
-
         return(
-        <Card sx={{ maxWidth: 345,margin:2,boxShadow:"10px 5px 10px #4bb54330,-10px -5px 10px #4bb54330" }} key={cards._id}>
+        <Card sx={{ maxWidth: 345,margin:2 }} key={cards._id}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -81,24 +62,14 @@ break;
             {cards.author}
           </Typography>
           <Typography variant="body3" color="text.secondary">
-           {cards.numberOfEnrollments} enrollements
+           {cards.numberOfEnrollments}
           </Typography>
-          <Typography variant="body3" color="text.secondary" sx={{float:'right'}}>
+          <Typography variant="body3" color="text.secondary">
            {cards.description}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        
-       {r&&(<Button size="small" color="primary" disabled>
-          ENROLLED
-        </Button>)
-        }
-        {!r&&(<Button size="small" color="primary" onClick={(()=>handle(id,cards._id))}>
-          ENROLL
-        </Button>)} 
-        
-      </CardActions>
+      
     </Card>)} )   }
 							</Box>
 							</Box>

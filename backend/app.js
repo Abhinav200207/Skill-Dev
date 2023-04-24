@@ -4,6 +4,7 @@ const app = express();
 const cors=require("cors")
 app.use(cors({
     origin:'*',
+    credentials:true,
 }))
 // Using Middlewares
 app.use(express.json({ limit: "50mb" }));

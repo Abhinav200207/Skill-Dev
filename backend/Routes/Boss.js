@@ -11,6 +11,6 @@ router.route("/login").post(login);
 
 router.route("/logout").get(logout);
 
-router.route("/addjobs").post(isAuthenticated, addjobs);
+router.route("/addjobs").post(addjobs);
 
 module.exports = router;

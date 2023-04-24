@@ -6,7 +6,7 @@ import axios from "axios"
 export default function Login() {
 
     const[user,setUser]=useState({
-       
+    
         email:"",
         password:"",
        
@@ -26,13 +26,15 @@ export default function Login() {
       
       
           const handlChange = async (e) => {
+            console.log("yes")
               e.preventDefault();
               const {email, password } = user;
               if (email && password) {
                   await axios.post("http://localhost:4000/user/login", user).then((res) => {
-                      alert(res.data.message);
-                      console.log(res.data.user)
-                      window.location.reload();
+                      alert(res.data.employee._id);
+                      window.localStorage.setItem("userId",`${res.data.employee._id}`)
+                      console.log(res)
+                      Navigate("/user/profile")
                   });
             console.log(user)
               } else {

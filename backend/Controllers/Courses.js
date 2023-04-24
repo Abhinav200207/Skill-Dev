@@ -1,5 +1,5 @@
 const Course = require('../models/Course');
-
+const Employee=require("../models/User")
 exports.createCourse = async (req, res) => {
     try {
         const { title, skills, author, description } = req.body;
@@ -37,4 +37,26 @@ exports.getAllCourses = async (req, res) => {
             message: error.message,
         });
     }
+}
+
+exports.getmycourses=async(req,res)=>{
+   try {
+    const {userId}=req.body
+    const employee=await Employee.find({_id:userId}).populate({path:'courses'})
+    res.status(201).json({
+        success: true,
+        courses: employee
+    });
+
+   } catch (error) {
+    console.log(error)
+    res.status(500).json({
+        success: false,
+        message: error.message,
+    });
+   }
+
+
+
+
 }
