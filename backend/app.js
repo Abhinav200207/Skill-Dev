@@ -3,7 +3,10 @@ const cookieParser = require("cookie-parser");
 const app = express();
 const cors = require("cors")
 app.use(cors({
-    origin: '*',
+
+    origin:'*',
+    credentials:true,
+
 }))
 // Using Middlewares
 app.use(express.json({ limit: "50mb" }));

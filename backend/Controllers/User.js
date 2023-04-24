@@ -53,7 +53,7 @@ exports.login = async (req, res) => {
                 message: "employee does not exist",
             });
         }
-
+console.log(employee,password)
         const isMatch = await employee.matchPassword(password);
 
         if (!isMatch) {
@@ -102,14 +102,14 @@ exports.logout = async (req, res) => {
 
 exports.enroll = async (req, res) => {
     try {
-        const { courseId } = req.body;
+        const { courseId ,userId} = req.body;
 
         const course = await Course.findById(courseId);
 
         course.numberOfEnrollments += 1;
-        course.students.unshift(req.user._id);
+        course.students.unshift(userId);
 
-        const employee = await Employee.findById(req.user._id);
+        const employee = await Employee.findById(userId);
 
         employee.courses.unshift(courseId);
 
@@ -123,11 +123,58 @@ exports.enroll = async (req, res) => {
         });
 
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             success: false,
             message: error.message,
         });
     }
+}
+exports.updateUser = async (req, res) => {
+    try {
+        const employee = await Employee.findById(req.user._id);
+
+        const { name, city, bio, state, dob, skills } = req.body;
+
+        employee.name = name;
+        employee.city = city;
+        employee.state = state;
+        employee.dob = dob;
+        employee.bio = bio;
+        employee.skills = skills;
+
+        await employee.save();
+
+        res.status(200).json({
+            success: true,
+            employee: employee,
+            message: "Profile Updated",
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+}
+exports.info=async(req,res)=>{
+   try {
+    const {userId}=req.body
+    const user=await Employee.findById(userId)
+    res.status(201).json({
+        success: true,
+        message: "enrollment sucessful",
+        user
+
+    });
+   } catch (error) {
+    console.log(error)
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+   }
+
 }
 
 exports.updateUser = async (req, res) => {

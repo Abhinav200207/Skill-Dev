@@ -20,9 +20,9 @@ function Profile() {
 	useEffect(() => {
 		const fetchUser = async () => {
 			try {
-				// const userInfo = await axios.get(`http://localhost:8000/api/auth/user/${id}`);
-				// console.log(userInfo.data.user);
-				// setUser(userInfo.data.user);
+				const userInfo = await axios.get(`http://localhost:4000/user/getinfo`,{userId:id});
+				console.log(userInfo.data.user);
+				setUser(userInfo.data.user);
 			} catch (error) {
 				console.log(error);
 			}
@@ -33,7 +33,7 @@ function Profile() {
 	const handleChange = (e) => {
 		e.preventDefault();
 		const { value, name } = e.target;
-		// console.log(name, value);
+		
 		setUser(() => {
 			return {
 				...user,
@@ -44,9 +44,9 @@ function Profile() {
 	// console.log(user);
 	const handleSave = async (e) => {
 		e.preventDefault();
-		// console.log("User to be updated: ", user);
-		// const updatedUser = await axios.post(`http://localhost:8000/api/auth/updateuser/${id}`, user);
-		// console.log(updatedUser);
+		console.log("User to be updated: ", user);
+		const updatedUser = await axios.post(`http://localhost:8000/api/auth/updateuser/${id}`, user);
+		console.log(updatedUser);
 		setEdit(false);
 		// setUser(updatedUser.data.userUp);
 	};

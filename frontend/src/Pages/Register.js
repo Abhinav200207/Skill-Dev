@@ -31,10 +31,10 @@ const val = (e) => {
 		e.preventDefault();
 		const {name, email, password, city,bio,dob } = user;
 		if (email && password && name&&city&&bio&&dob) {
-			await axios.post("http://localhost:8000/user/register", user).then((res) => {
+			await axios.post("http://localhost:4000/user/register", user).then((res) => {
 				alert(res.data.message);
 				console.log(res.data.user)
-				window.location.reload();
+				// window.location.reload();
 			});
       console.log(user)
 		} else {
