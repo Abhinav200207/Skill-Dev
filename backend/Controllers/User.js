@@ -3,7 +3,7 @@ const Course = require("../models/Course");
 
 exports.register = async (req, res) => {
     try {
-        const { name, email, password, city, bio, dob } = req.body;
+        const { name, email, password, city, state, bio, dob, skills } = req.body;
 
         let employee = await Employee.findOne({ email });
         if (employee) {
@@ -13,12 +13,14 @@ exports.register = async (req, res) => {
         }
 
         employee = await Employee.create({
-            name,
-            email,
-            password,
-            city,
-            bio,
-            dob
+            name: name,
+            email: email,
+            password: password,
+            city: city,
+            state: state,
+            bio: bio,
+            dob: dob,
+            skills: skills
         });
 
         const token = await employee.generateToken();
@@ -53,7 +55,7 @@ exports.login = async (req, res) => {
                 message: "employee does not exist",
             });
         }
-console.log(employee,password)
+        console.log(employee, password)
         const isMatch = await employee.matchPassword(password);
 
         if (!isMatch) {
@@ -102,7 +104,7 @@ exports.logout = async (req, res) => {
 
 exports.enroll = async (req, res) => {
     try {
-        const { courseId ,userId} = req.body;
+        const { courseId, userId } = req.body;
 
         const course = await Course.findById(courseId);
 
@@ -131,30 +133,30 @@ exports.enroll = async (req, res) => {
     }
 }
 
-exports.info=async(req,res)=>{
-   try {
-    const {userId}=req.body
-    const user=await Employee.findById(userId).populate({path:'courses'})
-    res.status(201).json({
-        success: true,
-        message: "enrollment sucessful",
-        user
+exports.info = async (req, res) => {
+    try {
+        const { userId } = req.body
+        const user = await Employee.findById(userId).populate({ path: 'courses' })
+        res.status(201).json({
+            success: true,
+            message: "enrollment sucessful",
+            user
 
-    });
-   } catch (error) {
-    console.log(error)
+        });
+    } catch (error) {
+        console.log(error)
         res.status(500).json({
             success: false,
             message: error.message,
         });
-   }
+    }
 
 }
 
 exports.updateUser = async (req, res) => {
     try {
-        const {_id}=req.body
-        const employee = await Employee.findById(_id).populate({path:'courses'});
+        const { _id } = req.body
+        const employee = await Employee.findById(_id).populate({ path: 'courses' });
 
         const { name, city, bio, state, dob, skills } = req.body;
 
