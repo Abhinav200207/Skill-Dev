@@ -28,7 +28,8 @@ class ApiFeatures {
             ?
             {
                 skills: {
-                    $in: this.queryStr.skill
+                    $regex: this.queryStr.skill,
+                    $options: "i",
                 }
             }
             : {};

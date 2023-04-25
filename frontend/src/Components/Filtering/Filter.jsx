@@ -23,7 +23,7 @@ const Filter = () => {
 
 
     const clickHandler = async () => {
-        const res = await axios.get(`http://localhost:4000/details/employee?city=${city}&state=${state}&skills=${skill}`)
+        const res = await axios.get(`http://localhost:4000/details/employee?city=${city}&state=${state}&skill=${skill}`)
         setEmployee(res.data.employee);
         // console.log(res.data.employee);
         console.log("employee", employee)
