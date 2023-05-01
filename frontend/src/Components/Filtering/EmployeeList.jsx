@@ -1,13 +1,15 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import HomeIcon from '@mui/icons-material/Home';
 import emailjs from 'emailjs-com'
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 export default function EmployeeList({ name, city, state, skills, email, id }) {
     const form = useRef();
+    const [loading, setloading] = useState(false);
 
     const sendEmail = (e) => {
+        setloading(true);
         e.preventDefault();
         console.log(form.current);
 
@@ -17,12 +19,16 @@ export default function EmployeeList({ name, city, state, skills, email, id }) {
             }, (error) => {
                 console.log(error.text);
             });
+        setTimeout(() => {
+            // Code to be executed after 1 second
+            setloading(false);
+        }, 1000);
     };
 
     return (
         <div className="phone">
             <div style={{ "paddingLeft": "3%", "fontFamily": "sans-serif" }}>
-                <div style={{"textAlign":"left"}}> <span style={{ "fontWeight": "bold", "fontSize": "18px" }}> {name} </span>, <HomeIcon style={{ "marginLeft": "2px", "width": "3%", "height": "3%", "marginBottom": "-3px" }} /> <span style={{ "fontWeight": "bold", "fontSize": "13px", "marginRight": "5px" }}> State: </span> {state} <span style={{ "fontWeight": "bold", "fontSize": "13px", "marginRight": "5px" }}> City: </span> {city}</div>
+                <div style={{ "textAlign": "left" }}> <span style={{ "fontWeight": "bold", "fontSize": "18px" }}> {name} </span>, <HomeIcon style={{ "marginLeft": "2px", "width": "3%", "height": "3%", "marginBottom": "-3px" }} /> <span style={{ "fontWeight": "bold", "fontSize": "13px", "marginRight": "5px" }}> State: </span> {state} <span style={{ "fontWeight": "bold", "fontSize": "13px", "marginRight": "5px" }}> City: </span> {city}</div>
                 <div style={{ "display": "flex", "flexDirection": "row" }}><span style={{ "fontWeight": "bold", "fontSize": "15px" }}> Skills : </span>
                     {
                         skills && skills.length > 0 ? (
@@ -40,7 +46,7 @@ export default function EmployeeList({ name, city, state, skills, email, id }) {
                 <input type="text" value={name} name="to_name" style={{ "display": "none" }} />
                 <input type="email" value={email} name="to_email" style={{ "display": "none" }} />
                 <Button type="submit" onSubmit={sendEmail} className="button" style={{ "marginRight": "3%", "backgroundColor": "rgba(254, 7, 77, 0.79)" }}>
-                    <AddIcon style={{ "color": "white" }} />
+                    {loading === false ? (<AddIcon style={{ "color": "white" }} />) : (<CircularProgress style={{ "color": "white" }} />)}
                 </Button>
             </form>
         </div>
